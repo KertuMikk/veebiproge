@@ -18,28 +18,30 @@ Throney </font> </h1>
    <p> <font face="Comic Sans MS" 
              size="3" 
              color= "Ivory">
- See veebileht on loodud õppetöö raames <br> 
- ja ei sisalda tõsiseltvõetavat sisu! <br> </font>
+ See veebileht on loodud õppetöö raames  
+ ja ei sisalda tõsiseltvõetavat sisu!  </font>
  </p>
 
 
 <p>
 <img src="https://media.giphy.com/media/RX3vhj311HKLe/giphy.gif" 
 alt="nopower" height="242" width="350"> 
-</p>
-<p>
+
 <img src="https://media.giphy.com/media/LXP19BrVaOOgE/giphy.gif" 
 alt="RamseyBolton" height="242" width="350"> 
-</p>
-<p>
+
 <img src="https://media.giphy.com/media/Cr7yTbjNuY27C/giphy.gif" 
 alt="gollum" height="242" width="350"> 
 </p>
-<p>
-<iframe width="560" height="315" 
-src="https://www.youtube.com/embed/1lPFfnrzIHM" frameborder="0" 
-</iframe>
-</p>
+
+
+  <?php
+    echo "<p>YOU HAVE NO POWER HERE!!</p>";
+	echo "<p>Today is ";
+	echo date("d/m/Y");
+	echo".</p>";
+	
+  ?>
 
 </body>
 </html>
