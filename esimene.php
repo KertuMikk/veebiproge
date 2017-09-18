@@ -13,8 +13,43 @@
 //võrdlen kellaaega ja hindan päevaosa ( < > == <=  >=  != )
 $partOfDay = "";
 $minutesPassed =round(( $timeNow - $schoolbegin )/60);
+//echo $minutesPassed;
 
-echo $minutesPassed;
+
+//vanuse muutujad
+$MyAge=0;
+$ageNote = "";
+$myBirthYear;
+$yearsOfMyLife = "";
+//vanuse arvutamine
+if(isset($_POST["birthYear"]) and $_POST["birthYear"] != 0)
+{
+$myBirthYear = $_POST["birthYear"];
+$MyAge = date("Y") - $myBirthYear; 
+//echo $MyAge;
+$ageNote = "<p>You are around " .$MyAge ." years old</p>";
+
+$yearsOfMyLife = "<ol> \n";
+$YearNow = date("Y");
+for ($i =$myBirthYear; $i <= $YearNow; $i ++)
+{
+	$yearsOfMyLife .= "<li>" .$i . "</li>\n";
+	 
+	 
+  }
+
+$yearsOfMyLife .= "</ol> \n";
+
+}
+//var_dump ($_POST);
+//echo $_POST["birthYear"];
+
+//lihtne tsükkel
+/*for ($i = 0;$i < 5; $i++)
+{
+	echo "ha";
+}*/
+
 
 
 if ($hourNow < 8 and $hourNow > 4 ){
@@ -32,10 +67,15 @@ if ($hourNow >= 23 and $hourNow < 4 ){
 	$partOfDay = "night";
 }
 
-echo $timeNow - $schoolbegin;
+//echo $timeNow - $schoolbegin;
 //echo $partOfDay
+ 
+ 
+ $monthNamesEt = ["jaanuar","veebruar","märts","aprill","mai","juuni","juuli","august","september","oktoober","november","detsember"];
+//var_dump ($monthNamesEt);
+//echo $monthNamesEt[3];
 
-
+$monthNow = $monthNamesEt[date("n") - 1];
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,7 +92,7 @@ echo $timeNow - $schoolbegin;
               size="10"
               color= "Ivory"> 
 <?php
-echo $myName . "". $myFamilyName;
+  echo $myName." ".$myNamilyName;
 ?>
 </font>   </h1>
 </header>
@@ -61,7 +101,14 @@ echo $myName . "". $myFamilyName;
              size="3" 
              color= "Ivory">
  See veebileht on loodud õppetöö raames  
- ja ei sisalda tõsiseltvõetavat sisu!  </font>
+ ja ei sisalda tõsiseltvõetavat sisu!
+ <?php
+    echo "<p>YOU HAVE NO POWER HERE!!</p>";
+	echo "<p>Today is ";
+	echo date("d/") .$monthNow .date("/Y") . ", rignt now is " .$partOfDay;
+	echo ".</p>";
+	echo "<p>page was opened at:" .date("H:i:s") .".</p>";
+  ?> </font>
  </p>
 
 
@@ -76,12 +123,27 @@ alt="gollum" height="242" width="350">
               size="3"
               color= "Ivory"> 
 
+  
+  <h2>Let's talk about age :) </h2>
+  <p>Tell us your birth year, we calculate your age!</p>
+  <form method="POST">
+    <label> Your birth year: </label>
+    <input name="birthYear" type="number" min="1900" max="<?php date("Y") ?>" 
+	value="<?php
+	echo $myBirthYear; 
+	?>">
+	
+	<input id="submitBirthYear" type="submit" value="SuBmIt">
+	
+  </form>
   <?php
-    echo "<p>YOU HAVE NO POWER HERE!!</p>";
-	echo "<p>Today is ";
-	echo date("d/m/Y") . ", rignt now is " .$partOfDay;
-	echo ".</p>";
-	echo "<p>page was opened at:" .date("H:i:s") .".</p>";
+  if($ageNote != "")
+  {
+	 echo $ageNote; 
+  }
+  if ($yearsOfMyLife != ""){
+	  echo "\n <h3> You have been living through </h3> \n" .$yearsOfMyLife;
+  }
   ?>
 </font>
 </body>
