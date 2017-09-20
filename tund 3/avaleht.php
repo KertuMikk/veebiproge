@@ -69,8 +69,9 @@ $monthNow = $monthNamesEt[date("n") - 1];
 <h2> Aaaand few links for you </h2>
 <p>I study at <a href=https://www.tlu.ee/>Tallinn UNI</a> </p>
 <p>And <a href="../esimene.php">this </a>is my first precious </p>
-<p>And <a href="../../../~masijoon/veebiprogrammeerimine/esimene.php">this </a>is my friends first precious </p>
-<p>Picture from uni <a href=foto.php/>here</a> </p>
+<p>And <a href="../../../~nigokart/veebiprogrammeerimine/esimene.php">this </a>is my friends first precious (THERE IS SOMETHING WRONG) </p>
+<p>Pictures from uni <a href=foto.php/>here</a> </p>
+<p>Login form <a href=login.php/>here</a> </p>
 </font>
  </p>
 <p>
