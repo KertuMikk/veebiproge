@@ -1,4 +1,6 @@
 <?php
+require("../../../config.php");
+//echo $serverHost;
 	$loginEmail = "";
 
 	
@@ -16,7 +18,7 @@
 	$signupBirthMonth = null;
 
 	$signupBirthYear = null;
-
+$signupBirthDate = null;
 	
 
 $signupFirstNameError = "";
@@ -33,7 +35,7 @@ $signupFirstNameError = "";
 	
 	
 	
-	
+
 	
 
 
@@ -45,7 +47,7 @@ $signupFirstNameError = "";
 
 		if (empty ($_POST["loginEmail"])){
 
-			//$loginEmailError ="NB! Ilma selleta ei saa sisse logida!";
+			$loginEmailError ="You need that to log in!";
 
 		} else {
 
@@ -63,7 +65,7 @@ $signupFirstNameError = "";
 
 		if (empty ($_POST["signupFirstName"])){
 
-			//$signupFirstNameError ="NB! Väli on kohustuslik!";
+			$signupFirstNameError ="You MUST type that!";
 
 		} else {
 
@@ -81,7 +83,7 @@ $signupFirstNameError = "";
 
 		if (empty ($_POST["signupFamilyName"])){
 
-			//$signupFamilyNameError ="NB! Väli on kohustuslik!";
+			$signupFamilyNameError ="You MUST type that!";
 
 		} else {
 
@@ -117,7 +119,24 @@ if (isset($_POST["signupBirthMonth"]))
 	}
 	
 	
-	
+	if(isset($_POST["signupBirthMonth"]) and isset ($_POST["signupBirthDay"]) and isset ($_POST["signupBirthYear"]))
+	{ 
+		//kontrollin kuupäeva kehtivust
+		if(checkdate(intval($_POST["signupBirthMonth"]),intval($_POST["signupBirthDay"]),intval($_POST["signupBirthYear"])))
+			
+			{
+				$birthDate = date_create(intval($_POST["signupBirthMonth"]). "/" . intval($_POST["signupBirthDay"]) ."/" . intval($_POST["signupBirthYear"]));
+				$signupBirthDate = date_format($birthDate, "Y-m-d");
+				echo $signupBirthDate;
+	} else {
+		$signupBirthDayError .= "Date is not valid, try again ";
+		
+		
+	}
+		
+		
+		
+	}
 	
 	
 	
@@ -188,6 +207,56 @@ if (isset($_POST["signupBirthMonth"]))
 			//$signupGenderError = " (Palun vali sobiv!) Määramata!";
 
 	}
+
+	
+	
+	
+	
+	
+	
+	//UUS KASUTAJA ANDMEBAAS
+	
+	
+	if(empty($signupFirstNameError) and empty($signupFamilyNameError) and empty ($signupBirthDayError) and empty ($signupGenderError) and empty ($signupEmailError) and empty ($signupPasswordError))
+	{
+		echo "Let's begin! \n";
+		
+		
+		$signupPassword = hash("sha512", $_POST["signupPassword"]);
+		//echo $signupPassword;
+		
+		//ühendus serveriga
+		$database = "if17_mikkkert_2";
+		$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+		//käsk andmebaasile
+		$stmt =$mysqli->prepare("INSERT INTO vp2users (first_name, last_name, birth_date, gender, email, password) VALUES (?, ?, ?, ?, ?, ?)");
+		echo $mysqli->error;
+		//s-string(tekst) i_integrer(täisarv) d-decimal(ujukomaarv)
+		$stmt->bind_param("sssiss", $signupFirstName, $signupFamilyName, $signupBirthDate, $gender, $signupEmail, $signupPassword);
+		//$stmt->execute();
+		if($stmt->execute())
+		{
+		echo"DoNe!";	
+			
+			
+		}else{
+			echo "oops something went wrong :( " .$stmt->error;
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 
 	
 //Tekitame aasta valiku
@@ -305,11 +374,11 @@ $signupMonthSelectHTML .= "</select> \n";
 
 		<label>Username (Email): </label>
 
-		<input name="loginEmail" type="email" value="<?php echo $loginEmail; ?>" required>
+		<input name="loginEmail" type="email" value="<?php echo $loginEmail; ?>" >
 
 		<br><br>
 
-		<input name="loginPassword" placeholder="Password" type="password"required>
+		<input name="loginPassword" placeholder="Password" type="password">
 
 		<br><br>
 
@@ -329,13 +398,14 @@ $signupMonthSelectHTML .= "</select> \n";
 
 		<label>First name </label>
 
-		<input name="signupFirstName" type="text" value="<?php echo $signupFirstName; ?>"required>
-
+		<input name="signupFirstName" type="text" value="<?php echo $signupFirstName; ?>">
+<span><?php echo $signupFirstNameError ; ?> </span>
 		<br>
 
 		<label>Family name </label>
 
-		<input name="signupFamilyName" type="text" value="<?php echo $signupFamilyName; ?>"required>
+		<input name="signupFamilyName" type="text" value="<?php echo $signupFamilyName; ?>">
+		
 <br>
 <label>Your birth date</label>
 <?php
@@ -360,11 +430,11 @@ echo $signupMonthSelectHTML . $signupDaySelectHTML .$signupYearSelectHTML
 
 		<label>Username (Email)</label>
 
-		<input name="signupEmail" type="email" value="<?php echo $signupEmail; ?>"required>
+		<input name="signupEmail" type="email" value="<?php echo $signupEmail; ?>">
 
 		<br><br>
 
-		<input name="signupPassword" placeholder="Password" type="password"required>
+		<input name="signupPassword" placeholder="Password" type="password">
 
 		<br><br>
 
