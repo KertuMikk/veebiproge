@@ -4,7 +4,7 @@ require("../../../config.php");
 	$loginEmail = "";
 
 	
-	
+	$signupPassword = "";
 	$signupFirstName = "";
 
 	$signupFamilyName = "";
@@ -33,7 +33,7 @@ $signupFirstNameError = "";
 
 	$signupPasswordError = "";
 	
-	
+	$loginEmailError = "";
 	
 
 	
@@ -65,7 +65,7 @@ $signupFirstNameError = "";
 
 		if (empty ($_POST["signupFirstName"])){
 
-			$signupFirstNameError ="You MUST type that!";
+			$signupFirstNameError ="Please type your first name!";
 
 		} else {
 
@@ -83,7 +83,7 @@ $signupFirstNameError = "";
 
 		if (empty ($_POST["signupFamilyName"])){
 
-			$signupFamilyNameError ="You MUST type that!";
+			$signupFamilyNameError ="Please type your last name!";
 
 		} else {
 
@@ -161,7 +161,7 @@ if (isset($_POST["signupBirthMonth"]))
 
 		if (empty ($_POST["signupEmail"])){
 
-			//$signupEmailError ="NB! Väli on kohustuslik!";
+			$signupEmailError ="We need that to create an account!";
 
 		} else {
 
@@ -180,7 +180,7 @@ if (isset($_POST["signupBirthMonth"]))
 
 		if (empty ($_POST["signupPassword"])){
 
-			//$signupPasswordError = "NB! Väli on kohustuslik!";
+			$signupPasswordError = "Please type in your password!";
 
 		} else {
 
@@ -188,7 +188,7 @@ if (isset($_POST["signupBirthMonth"]))
 
 			if (strlen($_POST["signupPassword"]) < 8){
 
-				//$signupPasswordError = "NB! Liiga lühike salasõna, vaja vähemalt 8 tähemärki!";
+				$signupPasswordError = "You need longer one, try again!";
 
 			}
 
@@ -204,7 +204,7 @@ if (isset($_POST["signupBirthMonth"]))
 
 		} else {
 
-			//$signupGenderError = " (Palun vali sobiv!) Määramata!";
+			$signupGenderError = "Please choose one!";
 
 	}
 
@@ -220,10 +220,8 @@ if (isset($_POST["signupBirthMonth"]))
 	if(empty($signupFirstNameError) and empty($signupFamilyNameError) and empty ($signupBirthDayError) and empty ($signupGenderError) and empty ($signupEmailError) and empty ($signupPasswordError))
 	{
 		echo "Let's begin! \n";
-		
-		
 		$signupPassword = hash("sha512", $_POST["signupPassword"]);
-		//echo $signupPassword;
+		echo $signupPassword;
 		
 		//ühendus serveriga
 		$database = "if17_mikkkert_2";
@@ -375,7 +373,7 @@ $signupMonthSelectHTML .= "</select> \n";
 		<label>Username (Email): </label>
 
 		<input name="loginEmail" type="email" value="<?php echo $loginEmail; ?>" >
-
+       <span><?php echo $loginEmailError; ?> </span>
 		<br><br>
 
 		<input name="loginPassword" placeholder="Password" type="password">
@@ -399,13 +397,13 @@ $signupMonthSelectHTML .= "</select> \n";
 		<label>First name </label>
 
 		<input name="signupFirstName" type="text" value="<?php echo $signupFirstName; ?>">
-<span><?php echo $signupFirstNameError ; ?> </span>
+        <span><?php echo $signupFirstNameError; ?> </span>
 		<br>
 
 		<label>Family name </label>
 
 		<input name="signupFamilyName" type="text" value="<?php echo $signupFamilyName; ?>">
-		
+		<span><?php echo $signupFamilyNameError; ?> </span>
 <br>
 <label>Your birth date</label>
 <?php
@@ -423,7 +421,7 @@ echo $signupMonthSelectHTML . $signupDaySelectHTML .$signupYearSelectHTML
 		<input type="radio" name="gender" value="1" <?php if ($gender == '1') {echo 'checked';} ?>><label>Male</label> <!-- Kõik läbi POST'i on string!!! -->
 
 		<input type="radio" name="gender" value="2" <?php if ($gender == '2') {echo 'checked';} ?>><label>Female</label>
-
+        <span><?php echo $signupGenderError; ?> </span>
 		<br><br>
 
 		
@@ -431,11 +429,11 @@ echo $signupMonthSelectHTML . $signupDaySelectHTML .$signupYearSelectHTML
 		<label>Username (Email)</label>
 
 		<input name="signupEmail" type="email" value="<?php echo $signupEmail; ?>">
-
+           <span><?php echo $signupEmailError; ?> </span>
 		<br><br>
 
 		<input name="signupPassword" placeholder="Password" type="password">
-
+        <span><?php echo $signupPasswordError; ?> </span>
 		<br><br>
 
 
