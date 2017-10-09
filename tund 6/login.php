@@ -60,7 +60,7 @@
 
 	$loginEmailError ="";
 
-	
+	$lastIdea="There is no good ideas yet";
 
 	if(isset($_POST["loginButton"])){
 
@@ -374,7 +374,8 @@
 
 	$signupYearSelectHTML.= "</select> \n";
 
-	
+	//värskeim mõte
+	$lastIdea= readLastIdea();
 
 ?>
 
@@ -391,8 +392,10 @@
 </head>
 
 <body background="https://www.muralswallpaper.co.uk/app/uploads/pattern-clouds-pink-and-grey-nursery-plain-820x532.jpg">
-
-	<h1>Logi sisse!</h1>
+<h1>The web of good ideas</h1>
+<p>Freshest idea is: <span><?php echo $lastIdea; ?></span></p>
+	
+	<h2>Logi sisse!</h2>
 
 	<p>Siin harjutame sisselogimise funktsionaalsust.</p>
 
@@ -416,7 +419,7 @@
 
 	
 
-	<h1>Sign up</h1>
+	<h2>Sign up</h2>
 
 	<p>If you still don't have user....</p>
 
@@ -458,9 +461,9 @@
 
 		<br>
 
-		<input type="radio" name="gender" value="1" <?php if ($gender == "1") {echo 'checked';} ?>><label>Mees</label> <!-- Kõik läbi POST'i on string!!! -->
+		<input type="radio" name="gender" value="1" <?php if ($gender == "1") {echo 'checked';} ?>><label>Male</label> <!-- Kõik läbi POST'i on string!!! -->
 
-		<input type="radio" name="gender" value="2" <?php if ($gender == "2") {echo 'checked';} ?>><label>Naine</label><span><?php echo $signupGenderError; ?></span>
+		<input type="radio" name="gender" value="2" <?php if ($gender == "2") {echo 'checked';} ?>><label>Female</label><span><?php echo $signupGenderError; ?></span>
 
 		<br><br>
 

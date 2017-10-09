@@ -131,7 +131,7 @@ require("../../../config.php");
 	{
 	    $notice="";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt =  $mysqli->prepare("INSERT INTO vp2userideas (userid,idea, ideacolor) VALUES(?,?,?)");
+		$stmt =  $mysqli->prepare("INSERT INTO vp2userideas (userid, idea, ideacolor) VALUES(?,?,?)");
 		echo $mysqli->error;
 		$stmt-> bind_param("iss",$_SESSION["userId"],$idea,$color);
 		if($stmt->execute())
@@ -147,9 +147,43 @@ require("../../../config.php");
 	}
 	
 	
+	//ideede vaatamise funktsioon
+	function readAllIdeas()
+	{
+		$ideas ="";
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);	
+		//$stmt = $mysqli->prepare("SELECT idea, ideacolor FROM vp2userideas ");
+		//absull kõigi mõtted
+		$stmt = $mysqli->prepare("SELECT idea, ideacolor FROM vp2userideas WHERE userid = ? ORDER BY created DESC");
+		$stmt->bind_param("i", $_SESSION["userId"]);
+		$stmt->bind_result($idea, $color);
+		$stmt->execute();
+		while ($stmt->fetch())
+		{
+			$ideas .= '<p style="background-color: ' .$color .'">'.$idea ."<p/> \n";
+			
+			
+			
+		}
+	$stmt->close();
+
+	$mysqli->close();
+return $ideas;	
+	}
 	
+	function readLastIdea()
+	{
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);		
+		
+	$stmt = $mysqli->prepare("SELECT idea FROM vp2userideas WHERE created =(SELECT MAX(created)FROM vp2userideas)");
+	$stmt->execute();
+	$stmt->bind_result($idea);
+	$stmt->fetch();
 	
-	
+	$stmt->close();
+	$mysqli->close();
+	return $idea;		
+	}
 
 	//sisestuse kontrollimise funktsioon
 
@@ -199,5 +233,27 @@ require("../../../config.php");
 
 	*/
 
+	function readAllUsers ()
+	{
+	
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);		
+		
+	$stmt = $mysqli->prepare("SELECT first_name, last_name, email FROM vp2users ORDER BY created");
+	$stmt->execute();
+	$stmt->bind_result($first_name, $last_name, $email);
+	$stmt->fetch();
+		
+	while ($stmt->fetch())
+		{
+			$first_name .= '<p style="background-color: red"><p/> \n';
+			$last_name .= '<p style="background-color: blue"><p/> \n';
+			$email.= '<p style="background-color: violet"><p/> \n'; 
+			
+			
+		}
+		$stmt->close();
+	$mysqli->close();
+		
+		}
 	
 ?>

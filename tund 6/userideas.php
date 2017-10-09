@@ -2,6 +2,7 @@
 
 	require("functions.php");
 $notice="";
+$ideas = "";
 	//kui pole sisse logitud, liigume login lehele
 
 	if(!isset($_SESSION["userId"])){
@@ -32,12 +33,13 @@ $notice="";
 	{
 		//echo $_POST["ideaColor"];
 		//echo $_POST["userIdea"];
-		$notice = saveIdea($_POST["userIdea"],$_POST["ideaColor"]);
+		$notice = saveIdea(test_input($_POST["userIdea"]),$_POST["ideaColor"]);
+		//$notice = saveIdea($_POST["userIdea"],$_POST["ideaColor"]);
 	}
 		
 		
 	}
-
+$ideas = readAllIdeas();
 ?>
 
 
@@ -47,7 +49,11 @@ $notice="";
 <html>
 
 <head>
-
+<style>
+body {
+    color: #6680CC;
+}
+</style>
 	<meta charset="utf-8">
 
 	<title>
@@ -79,7 +85,15 @@ $notice="";
 		<span><?php echo $notice; ?></span>
 
 	</form>
+<hr>
+<h2> A lots of good ideas </h2>
+<div style = "width:40%">
+<?php
+echo $ideas;
 
+?>
+
+</div>
 	
 	
 

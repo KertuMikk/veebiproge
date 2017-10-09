@@ -24,8 +24,7 @@
 
 	}
 
-
-
+$tabel = readAllUsers();
 ?>
 
 
@@ -56,10 +55,16 @@
 
 	<p><a href="main.php">Main page</a></p>
 
+	<?php
+	echo $first_name;
+	echo $last_name;
+	echo $email;
 	
+	?>
 
 	<table border="1" style="border-collapse: collapse;">
 
+		
 		<tr>
 
 			<th>First name</th>
