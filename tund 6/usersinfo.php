@@ -24,7 +24,8 @@
 
 	}
 
-$tabel = readAllUsers();
+$email = readAllUsers();
+
 ?>
 
 
@@ -55,52 +56,32 @@ $tabel = readAllUsers();
 
 	<p><a href="main.php">Main page</a></p>
 
-	<?php
-	echo $first_name;
-	echo $last_name;
-	echo $email;
-	
-	?>
 
-	<table border="1" style="border-collapse: collapse;">
+
+	
+		<table width = "300" border="1" style="border-collapse: collapse;">
 
 		
 		<tr>
 
-			<th>First name</th>
+			<th width="100">First name</th>
 
-			<th>Last name</th>
+			<th width="100">Last name</th>
 
-			<th>username</th>
-
-		</tr>
-
-		<tr>
-
-			<td>Kertu</td>
-
-			<td>Mikk</td>
-
-			<td>kertumik@tlu.ee</td>
+			<th width="100">email</th>
 
 		</tr>
 
-		<tr>
-
-			<td>Mari</td>
-
-			<td>Karus</td>
-
-			<td>kasrusmari@aed.ee</td>
-
-		</tr>
-
+			
+	
 	
 
-	</table>
-
+</table>
 	
 
+
+		
+<?php echo $email;?>
 </body>
 
 </html>

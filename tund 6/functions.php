@@ -235,25 +235,38 @@ return $ideas;
 
 	function readAllUsers ()
 	{
-	
+	$tabel = "";
+	$tabel2 ="" ;
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);		
 		
-	$stmt = $mysqli->prepare("SELECT first_name, last_name, email FROM vp2users ORDER BY created");
-	$stmt->execute();
-	$stmt->bind_result($first_name, $last_name, $email);
-	$stmt->fetch();
-		
-	while ($stmt->fetch())
-		{
-			$first_name .= '<p style="background-color: red"><p/> \n';
-			$last_name .= '<p style="background-color: blue"><p/> \n';
-			$email.= '<p style="background-color: violet"><p/> \n'; 
-			
-			
-		}
-		$stmt->close();
-	$mysqli->close();
-		
-		}
+	$stmt = $mysqli->prepare("SELECT first_name, last_name, email FROM vp2users");
 	
-?>
+	$stmt->bind_result($first_name,$last_name,$email);
+	$stmt->execute();
+	while ($stmt->fetch())
+		{	
+		/*$tabel .= 
+		'<table width= "300" border="1" style="border-collapse: collapse;">
+		
+			<tr>
+				<td width="100">'.$first_name .'</td>
+				<td width="100">'.$last_name.'</td>
+				<td width="100">'.$email .'</td>
+			</tr>
+	</table>';*/
+			
+			
+			$first_name .= '<p style=color:blue>'.$first_name ;
+			$last_name .= '<p style=color:blue>'.$last_name ;
+			$email .= '<p style=color:blue>'.$email;
+			//$tabel .= '<p style=color:blue>'.$first_name ."   " .$last_name ."   " .$email ."<p/> \n";
+		    //$tabel .= '<p >'.$first_name ."<p/> \n";
+			//$tabel2 .= '<p >'.$last_name ."<p/> \n";
+		}
+
+		$stmt->close();
+		$mysqli->close();
+		return $tabel . $tabel2;
+    }
+	
+	
