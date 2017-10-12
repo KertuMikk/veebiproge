@@ -24,7 +24,7 @@
 
 	}
 
-$email = readAllUsers();
+$tabel = readAllUsers();
 
 ?>
 
@@ -55,20 +55,20 @@ $email = readAllUsers();
 	<p><a href="?logout=1">Log out</a></p>
 
 	<p><a href="main.php">Main page</a></p>
-
+ 
 
 
 	
-		<table width = "300" border="1" style="border-collapse: collapse;">
+		<table width = "600" border="1" style="border-collapse: collapse;">
 
 		
 		<tr>
 
-			<th width="100">First name</th>
+			<th width="200">First name</th>
 
-			<th width="100">Last name</th>
+			<th width="200">Last name</th>
 
-			<th width="100">email</th>
+			<th width="200">email</th>
 
 		</tr>
 
@@ -81,7 +81,7 @@ $email = readAllUsers();
 
 
 		
-<?php echo $email;?>
+<?php echo $tabel;?>
 </body>
 
 </html>

@@ -232,6 +232,7 @@ return $ideas;
 	echo "Neljas summa on: " .($a + $b) ."\n";
 
 	*/
+	//Kasutajate nimekirja funktsioon
 
 	function readAllUsers ()
 	{
@@ -243,26 +244,32 @@ return $ideas;
 	
 	$stmt->bind_result($first_name,$last_name,$email);
 	$stmt->execute();
-	while ($stmt->fetch())
-		{	
-		/*$tabel .= 
-		'<table width= "300" border="1" style="border-collapse: collapse;">
+		/*$tabel = '<table width= "300" border="1" style="border-collapse: collapse;">
 		
 			<tr>
-				<td width="100">'.$first_name .'</td>
-				<td width="100">'.$last_name.'</td>
-				<td width="100">'.$email .'</td>
-			</tr>
-	</table>';*/
+				<th width="100"> first_name </td>
+				<th width="100"> last_name</td>
+				<th width="100"> email </td>
+		</tr>'; */
+		while ($stmt->fetch())
+			{	
+		
+			$tabel .='<table width= "600" border="1" style="border-collapse: collapse;"><tr>
+				<td width="200">'.$first_name .'</td>
+				<td width="200">'.$last_name.'</td>
+				<td width="200">'.$email .'</td>
+				</tr>
+			</table>';
 			
 			
-			$first_name .= '<p style=color:blue>'.$first_name ;
-			$last_name .= '<p style=color:blue>'.$last_name ;
-			$email .= '<p style=color:blue>'.$email;
+			//$first_name .= '<p style=color:blue>'.$first_name ;
+			//$last_name .= '<p style=color:blue>'.$last_name ;
+			//$email .= '<p style=color:blue>'.$email;
 			//$tabel .= '<p style=color:blue>'.$first_name ."   " .$last_name ."   " .$email ."<p/> \n";
 		    //$tabel .= '<p >'.$first_name ."<p/> \n";
 			//$tabel2 .= '<p >'.$last_name ."<p/> \n";
-		}
+			}
+				
 
 		$stmt->close();
 		$mysqli->close();
