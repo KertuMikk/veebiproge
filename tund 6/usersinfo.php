@@ -59,7 +59,7 @@ $tabel = readAllUsers();
 
 
 	
-		<table width = "600" border="1" style="border-collapse: collapse;">
+		<table width = "1000" border="1" style="border-collapse: collapse;">
 
 		
 		<tr>
@@ -69,6 +69,8 @@ $tabel = readAllUsers();
 			<th width="200">Last name</th>
 
 			<th width="200">email</th>
+			<th width="200">Gender</th>
+			<th width="200">Birt date</th>
 
 		</tr>
 

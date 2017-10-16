@@ -237,12 +237,11 @@ return $ideas;
 	function readAllUsers ()
 	{
 	$tabel = "";
-	$tabel2 ="" ;
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);		
 		
-	$stmt = $mysqli->prepare("SELECT first_name, last_name, email FROM vp2users");
+	$stmt = $mysqli->prepare("SELECT first_name, last_name, email, gender, birth_date FROM vp2users");
 	
-	$stmt->bind_result($first_name,$last_name,$email);
+	$stmt->bind_result($first_name,$last_name,$email,$gender ,$birth_date);
 	$stmt->execute();
 		/*$tabel = '<table width= "300" border="1" style="border-collapse: collapse;">
 		
@@ -252,12 +251,19 @@ return $ideas;
 				<th width="100"> email </td>
 		</tr>'; */
 		while ($stmt->fetch())
-			{	
+			{
+				if ($gender != 2) {
+		$gender= "mees";
+	} else {
+		$gender="naine";
+	}	
 		
-			$tabel .='<table width= "600" border="1" style="border-collapse: collapse;"><tr>
+			$tabel .='<table width= "1000" border="1" style="border-collapse: collapse;"><tr>
 				<td width="200">'.$first_name .'</td>
 				<td width="200">'.$last_name.'</td>
 				<td width="200">'.$email .'</td>
+				<td width="200">'.$gender .'</td>
+				<td width="200">'.$birth_date .'</td>
 				</tr>
 			</table>';
 			
@@ -273,7 +279,7 @@ return $ideas;
 
 		$stmt->close();
 		$mysqli->close();
-		return $tabel . $tabel2;
+		return $tabel ;
     }
 	
 	
