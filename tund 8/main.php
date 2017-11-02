@@ -91,6 +91,7 @@
 	<p><a href="usersinfo.php">Info about users</a></p>
 	<p><a href="userideas.php">Users good ideas</a></p>
 	<p><a href="avaleht.php">Main page</a></p>
+	<p><a href="uploadpics.php">Place you can upload pictures</a></p>
 
 	<h2>Pic of uni</h2>
 

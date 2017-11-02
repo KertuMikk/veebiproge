@@ -176,7 +176,7 @@ return $ideas;
 	{
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);		
 		
-	$stmt = $mysqli->prepare("SELECT idea FROM vp2userideas WHERE created =(SELECT MAX(created)FROM vp2userideas)");
+	$stmt = $mysqli->prepare("SELECT idea FROM vp2userideas WHERE created =(SELECT MAX(created)FROM vp2userideas WHERE deleted IS NULL)");
 	$stmt->execute();
 	$stmt->bind_result($idea);
 	$stmt->fetch();
