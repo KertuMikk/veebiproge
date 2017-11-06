@@ -80,7 +80,7 @@
 
 </head>
 
-<body background="https://www.muralswallpaper.co.uk/app/uploads/pattern-clouds-pink-and-grey-nursery-plain-820x532.jpg">
+<body background="http://img.archiexpo.com/images_ae/photo-g/141377-10636872.jpg">
 
 	
 
@@ -93,7 +93,7 @@
 	<p><a href="avaleht.php">Main page</a></p>
 	<p><a href="uploadpics.php">Place you can upload pictures</a></p>
 
-	<h2>Random pic for you</h2>
+	<h2>Random pic of an owl for you</h2>
 
 	<img src="<?php echo $picsDir .$picFile; ?>" alt="Tallinna ülikool">
 
