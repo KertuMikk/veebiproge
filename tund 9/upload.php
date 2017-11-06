@@ -23,7 +23,8 @@ require("functions.php");
 
 	}
 
-
+$marginVer = 10;
+$marginHor = 10;
 
 $notice = "";
 $target_dir = "../../pics/";
@@ -36,7 +37,7 @@ $target_file = $target_dir . pathinfo( basename($_FILES["fileToUpload"]["name"])
 
 
 $uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 $maxWidth = 600;
 $maxHeight = 400;
@@ -101,6 +102,35 @@ if(!empty($_FILES["fileToUpload"]["name"])){
 	$sizeRatio =  $imageHeight / $maxHeight;	
 	}
 	$myImage = resize_image($myTempImage, $imageWidth, $imageHeight, round($imageWidth/ $sizeRatio),round($imageHeight/ $sizeRatio));
+	//vesimärk
+	$stamp = imagecreatefrompng ("../../graphics/hmv_logo.png");
+	
+	$stampWidth = imagesx($stamp);
+	$stampHeight = imagesy($stamp);
+	$stampPosX = (round($imageWidth/ $sizeRatio))- $stampWidth - $marginHor;
+	$stampPosY = (round($imageHeight/ $sizeRatio))- $stampHeight - $marginVer;
+	imagecopy($myImage, $stamp, $stampPosX, $stampPosY, 0, 0, $stampWidth, $stampHeight);
+	
+	
+	//EXIF info
+	
+	
+	$textToImage = " Dat iz mine picture! :D ";
+	@$exif = exif_read_data($_FILES["fileToUpload"]["tmp_name"], "ANY_TAG", 0, true);
+	//var_dump($exif);
+	if(!empty($exif["DateTimeOriginal"])){
+		$textToImage = "Picture was taken " .$exif["DateTimeOriginal"];
+	}else{$textToImage = "Time of the picture is unknown ";}
+	//teksti lisamine
+	
+	//$textToImage = " Dat iz mine picture! :D ";
+	//värv (imagecolor.... on ilma läbipasitvuseta)
+	//alpha = 0-127
+	$textColor = imagecolorallocatealpha($myImage, 254, 128, 2, 50);
+	imagettftext($myImage, 20, 0, 10, 25, $textColor, "../../graphics/CaviarDreams.ttf", $textToImage);
+	
+	
+	
 	
 	//save image
 	
@@ -130,6 +160,8 @@ if(!empty($_FILES["fileToUpload"]["name"])){
 	imagecopyresampled($dst, $image, 0, 0, 0, 0, $w, $h, $origW, $origH);	
 	return $dst;
 	}
+	imagedestroy($myTempImage);
+	imagedestroy($myImage);
 ?>
 <!DOCTYPE html>
 <html>
